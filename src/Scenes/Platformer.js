@@ -45,7 +45,7 @@ class Platformer extends Phaser.Scene {
         
 
         // Create a layer
-        this.groundLayer = this.map.createLayer("grounds", this.tileset, 0, 0);
+        this.groundsLayer = this.map.createLayer("grounds", this.tileset, 0, 0);
         this.lavaNspikesLayer = this.map.createLayer("lava-spikes", this.tileset, 0, 0);
 
         
@@ -55,7 +55,7 @@ class Platformer extends Phaser.Scene {
         
 
         // Make it collidable
-        this.groundLayer.setCollisionByProperty({
+        this.groundsLayer.setCollisionByProperty({
             collides: true
         });
 
@@ -160,7 +160,7 @@ class Platformer extends Phaser.Scene {
         
 
         // Enable collision handling
-        this.physics.add.collider(my.sprite.player, this.groundLayer);
+        this.physics.add.collider(my.sprite.player, this.groundsLayer);
         
         
         

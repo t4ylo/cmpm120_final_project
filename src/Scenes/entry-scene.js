@@ -22,27 +22,20 @@ class Entry extends Phaser.Scene {
         this.sfx.coins = this.sound.add("coins");
         this.sfx.powerup = this.sound.add("powerup");
 
-        this.win = false
-        this.playerIsDead = false;
+        this.sceneTriggered = false
 
         // Create a new tilemap.
-        this.map = this.add.tilemap("entry-scene", 21, 21, 50, 20);
+        this.map_entry = this.add.tilemap("entry-scene", 21, 21, 50, 20);
 
         // add tileset and bg
-        this.tileset = this.map.addTilesetImage("kenny_tilemap_packed", "tilemap_tiles");
+        this.tileset = this.map_entry.addTilesetImage("kenny_tilemap_packed", "tilemap_tiles");
 
-        this.bg = this.add.tileSprite(
-            0, 0,
-            this.map.widthInPixels, this.map.heightInPixels,
-            "background"
-        ).setOrigin(0, 0).setScrollFactor(0);  
-
-        this.bg.setScale(this.SCALE * 2);
+        
 
         
 
         // Create a layer
-        this.groundLayer = this.map.createLayer("ground", this.tileset, 0, 0);
+        this.groundLayer = this.map_entry.createLayer("ground", this.tileset, 0, 0);
         
         
 
@@ -56,16 +49,16 @@ class Entry extends Phaser.Scene {
 
         // add collectables and make them interact
 
-        this.scenetrigger = this.map.createFromObjects("scene-trigger", {
+        this.scenetrigger = this.map_entry.createFromObjects("scene-trigger", {
             name: "scene",
             key: "tilemap_sheet",
-            frame: 122
+            frame: 182
         });
 
         this.sceneGroup = this.physics.add.staticGroup();
 
         this.scenetrigger.forEach((t) => {
-            this.coinGroup.add(t);
+            this.sceneGroup.add(t);
         });
 
        
@@ -74,7 +67,7 @@ class Entry extends Phaser.Scene {
 
         
         // set up player avatar
-        my.sprite.player = this.physics.add.sprite(0, 0, "platformer_characters", "tile_0006.png");
+        my.sprite.player = this.physics.add.sprite(30, 0, "platformer_characters", "tile_0006.png");
         my.sprite.player.setCollideWorldBounds(true);
 
         const tileset = this.tileset;
@@ -91,6 +84,9 @@ class Entry extends Phaser.Scene {
 
         // Enable collision handling
         this.physics.add.collider(my.sprite.player, this.groundLayer);
+        this.physics.add.overlap(my.sprite.player, this.sceneGroup, (player, scene) => {
+            this.sceneTriggered = true
+        });
         
         
         
@@ -126,10 +122,11 @@ class Entry extends Phaser.Scene {
         
 
         // cam
-        this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+        this.cameras.main.setBounds(0, 0, this.map_entry.widthInPixels, this.map_entry.heightInPixels);
         this.cameras.main.startFollow(my.sprite.player, true, 0.25, 0.25); // (target, [,roundPixels][,lerpX][,lerpY])
         this.cameras.main.setDeadzone(50, 50);
         this.cameras.main.setZoom(this.SCALE = 2);
+        this.cameras.main.setBackgroundColor("#add8e6");
 
         
         
@@ -227,8 +224,9 @@ class Entry extends Phaser.Scene {
             this.scene.restart();
         }
 
-        this.bg.tilePositionX = this.cameras.main.scrollX * 0.5;
-        this.bg.tilePositionY = this.cameras.main.scrollY * 0.5;
+        if(this.sceneTriggered) {
+            this.scene.start("platformerScene");
+        }
 
         
         
