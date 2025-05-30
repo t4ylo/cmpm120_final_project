@@ -1,6 +1,6 @@
-class Platformer extends Phaser.Scene {
+class Level_2 extends Phaser.Scene {
     constructor() {
-        super("platformerScene");
+        super("level_2Scene");
         this.powerupCollected = false;
         this.win = false;
         this.playerIsDead = false;
@@ -29,7 +29,7 @@ class Platformer extends Phaser.Scene {
         this.playerIsDead = false;
 
         // Create a new tilemap.
-        this.map = this.add.tilemap("platformer-project", 21, 21, 50, 20);
+        this.map = this.add.tilemap("level_2", 21, 21, 50, 20);
 
         // add tileset and bg
         this.tileset = this.map.addTilesetImage("kenny_tilemap_packed", "tilemap_tiles");
@@ -93,7 +93,7 @@ class Platformer extends Phaser.Scene {
         this.flag = this.map.createFromObjects("flag", {
             name: "flag",
             key: "tilemap_sheet",
-            frame: 310
+            frame: 342
         });
 
         this.flagGroup = this.physics.add.staticGroup();
@@ -101,7 +101,7 @@ class Platformer extends Phaser.Scene {
         this.flag.forEach((f) => {
             this.anims.create({
                 key: 'flagWave',
-                frames: this.anims.generateFrameNumbers('tilemap_sheet', {frames: [310, 340]}),
+                frames: this.anims.generateFrameNumbers('tilemap_sheet', {frames: [342, 312]}),
                 frameRate: 10,
                 repeat: -1
             });
@@ -324,7 +324,7 @@ class Platformer extends Phaser.Scene {
         
 
         if(this.win) {
-            this.scene.start("level_2Scene");
+            this.scene.start("Win");
         }
 
         
