@@ -67,7 +67,7 @@ class Entry extends Phaser.Scene {
 
         
         // set up player avatar
-        my.sprite.player = this.physics.add.sprite(30, 0, "platformer_characters", "tile_0006.png");
+        my.sprite.player = this.physics.add.sprite(20, 20, "platformer_characters", "tile_0006.png");
         my.sprite.player.setCollideWorldBounds(true);
 
         const tileset = this.tileset;

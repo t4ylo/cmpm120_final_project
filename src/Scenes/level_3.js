@@ -110,6 +110,22 @@ class Level_3 extends Phaser.Scene {
             this.flagGroup.add(f);
         });
 
+        this.lock = this.map.createFromObjects("lock", {
+            name: "lock",
+            key: "tilemap_sheet",
+            frame: 225
+        });
+
+        this.keyGroup = this.physics.add.staticGroup();
+
+        this.key = this.map.createFromObjects("key", {
+            name: "key",
+            key: "tilemap_sheet",
+            frame: 406
+        });
+
+        this.lockGroup = this.physics.add.staticGroup();
+
         
         // set up player avatar
         my.sprite.player = this.physics.add.sprite(0, 0, "platformer_characters", "tile_0006.png");

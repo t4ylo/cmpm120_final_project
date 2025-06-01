@@ -206,7 +206,7 @@
   <object id="19" name="flag" gid="314" x="1428.67" y="293.667" width="21" height="21"/>
  </objectgroup>
  <objectgroup id="6" name="key">
-  <object id="21" name="key" gid="407" x="30" y="319.667" width="21" height="21"/>
+  <object id="21" name="key" gid="407" x="33" y="319.667" width="21" height="21"/>
  </objectgroup>
  <objectgroup id="7" name="lock">
   <object id="23" name="lock" gid="226" x="1405.33" y="63.6667" width="21" height="21"/>
