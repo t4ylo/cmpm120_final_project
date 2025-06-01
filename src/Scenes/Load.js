@@ -8,6 +8,8 @@ class Load extends Phaser.Scene {
 
         
         this.load.atlas("platformer_characters", "tilemap-characters-packed.png", "tilemap-characters-packed.json");
+        this.load.image("player_1", "final_project_player_1.png");
+        this.load.image("player_2", "final_project_player_2.png");
 
         
         this.load.image("tilemap_tiles", "tilemap_packed.png");                         // Packed tilemap
@@ -36,31 +38,26 @@ class Load extends Phaser.Scene {
     create() {
         this.anims.create({
             key: 'walk',
-            frames: this.anims.generateFrameNames('platformer_characters', {
-                prefix: "tile_",
-                start: 6,
-                end: 7,
-                suffix: ".png",
-                zeroPad: 4
-            }),
+            frames: [
+                {frame: "player_1"} ],
             frameRate: 15,
             repeat: -1
         });
 
         this.anims.create({
             key: 'idle',
-            defaultTextureKey: "platformer_characters",
+            
             frames: [
-                { frame: "tile_0006.png" }
+                { frame: "player_1" }
             ],
             repeat: -1
         });
 
         this.anims.create({
             key: 'jump',
-            defaultTextureKey: "platformer_characters",
+            
             frames: [
-                { frame: "tile_0007.png" }
+                { frame: "player_2" }
             ],
         });
 
