@@ -246,8 +246,9 @@ class Level_3 extends Phaser.Scene {
         //walking vfx
         if(cursors.left.isDown) {
             my.sprite.player.setAccelerationX(-this.ACCELERATION);
-            my.sprite.player.resetFlip();
-            my.sprite.player.anims.play('walk', true);
+            my.sprite.player.setTexture("player_walk");
+            my.sprite.player.flipX = true
+            
           
             my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/2-10, my.sprite.player.displayHeight/2-5, false);
 
@@ -264,8 +265,9 @@ class Level_3 extends Phaser.Scene {
 
         } else if(cursors.right.isDown) {
             my.sprite.player.setAccelerationX(this.ACCELERATION);
-            my.sprite.player.setFlip(true, false);
-            my.sprite.player.anims.play('walk', true);
+            my.sprite.player.setTexture("player_walk");
+            my.sprite.player.flipX = false;
+            
             
             my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/2-10, my.sprite.player.displayHeight/2-5, false);
 
@@ -281,9 +283,10 @@ class Level_3 extends Phaser.Scene {
 
         } else {
             
-            my.sprite.player.setAccelerationX(0);
+            my.sprite.player.setVelocityX(0);
+            my.sprite.player.setTexture("player_idle");
             my.sprite.player.setDragX(this.DRAG);
-            my.sprite.player.anims.play('idle');
+           
            
             my.vfx.walking.stop();
         }

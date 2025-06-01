@@ -7,9 +7,8 @@ class Load extends Phaser.Scene {
         this.load.setPath("./assets/");
 
         
-        this.load.atlas("platformer_characters", "tilemap-characters-packed.png", "tilemap-characters-packed.json");
-        this.load.image("player_1", "final_project_player_1.png");
-        this.load.image("player_2", "final_project_player_2.png");
+        this.load.image("player_idle", "final_project_player_1.png");
+        this.load.image("player_walk", "final_project_player_2.png");
 
         
         this.load.image("tilemap_tiles", "tilemap_packed.png");                         // Packed tilemap
@@ -36,30 +35,7 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        this.anims.create({
-            key: 'walk',
-            frames: [
-                {frame: "player_1"} ],
-            frameRate: 15,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: 'idle',
-            
-            frames: [
-                { frame: "player_1" }
-            ],
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: 'jump',
-            
-            frames: [
-                { frame: "player_2" }
-            ],
-        });
+        
 
          
          this.scene.start("entryScene");

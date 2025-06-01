@@ -67,8 +67,9 @@ class Entry extends Phaser.Scene {
 
         
         // set up player avatar
-        my.sprite.player = this.physics.add.sprite(20, 20, "platformer_characters", "tile_0006.png");
+        my.sprite.player = this.physics.add.sprite(20, 20, "player_idle");
         my.sprite.player.setCollideWorldBounds(true);
+        my.sprite.player.setScale(0.10);
 
         const tileset = this.tileset;
 
@@ -138,8 +139,10 @@ class Entry extends Phaser.Scene {
         //walking vfx
         if(cursors.left.isDown) {
             my.sprite.player.setAccelerationX(-this.ACCELERATION);
-            my.sprite.player.resetFlip();
-            my.sprite.player.anims.play('walk', true);
+            my.sprite.player.setTexture("player_walk");
+            my.sprite.player.flipX = true
+            my.sprite.player.setDragX(this.DRAG);
+            
           
             my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/2-10, my.sprite.player.displayHeight/2-5, false);
 
@@ -156,8 +159,10 @@ class Entry extends Phaser.Scene {
 
         } else if(cursors.right.isDown) {
             my.sprite.player.setAccelerationX(this.ACCELERATION);
-            my.sprite.player.setFlip(true, false);
-            my.sprite.player.anims.play('walk', true);
+            my.sprite.player.setTexture("player_walk");
+            my.sprite.player.flipX = false;
+            my.sprite.player.setDragX(this.DRAG);
+            
             
             my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/2-10, my.sprite.player.displayHeight/2-5, false);
 
@@ -173,9 +178,10 @@ class Entry extends Phaser.Scene {
 
         } else {
             
-            my.sprite.player.setAccelerationX(0);
+            my.sprite.player.setVelocityX(0);
+            my.sprite.player.setTexture("player_idle");
             my.sprite.player.setDragX(this.DRAG);
-            my.sprite.player.anims.play('idle');
+           
            
             my.vfx.walking.stop();
         }
