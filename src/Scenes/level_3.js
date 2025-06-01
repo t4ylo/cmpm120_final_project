@@ -1,6 +1,6 @@
-class Level_2 extends Phaser.Scene {
+class Level_3 extends Phaser.Scene {
     constructor() {
-        super("level_2Scene");
+        super("level_3Scene");
         this.powerupCollected = true;
         this.win = false;
         this.playerIsDead = false;
@@ -29,7 +29,7 @@ class Level_2 extends Phaser.Scene {
         this.playerIsDead = false;
 
         // Create a new tilemap.
-        this.map = this.add.tilemap("level_2", 21, 21, 50, 20);
+        this.map = this.add.tilemap("level_3", 21, 21, 50, 20);
 
         // add tileset and bg
         this.tileset = this.map.addTilesetImage("kenny_tileset_packed", "tilemap_tiles");
@@ -93,7 +93,7 @@ class Level_2 extends Phaser.Scene {
         this.flag = this.map.createFromObjects("flag", {
             name: "flag",
             key: "tilemap_sheet",
-            frame: 342
+            frame: 313
         });
 
         this.flagGroup = this.physics.add.staticGroup();
@@ -101,7 +101,7 @@ class Level_2 extends Phaser.Scene {
         this.flag.forEach((f) => {
             this.anims.create({
                 key: 'flagWave',
-                frames: this.anims.generateFrameNumbers('tilemap_sheet', {frames: [342, 312]}),
+                frames: this.anims.generateFrameNumbers('tilemap_sheet', {frames: [313, 343]}),
                 frameRate: 10,
                 repeat: -1
             });
@@ -112,7 +112,7 @@ class Level_2 extends Phaser.Scene {
 
         
         // set up player avatar
-        my.sprite.player = this.physics.add.sprite(0, 200, "platformer_characters", "tile_0006.png");
+        my.sprite.player = this.physics.add.sprite(0, 0, "platformer_characters", "tile_0006.png");
         my.sprite.player.setCollideWorldBounds(true);
 
         const tileset = this.tileset;
@@ -319,7 +319,7 @@ class Level_2 extends Phaser.Scene {
         
 
         if(this.win) {
-            this.scene.start("level_3Scene");
+            this.scene.start("Win");
         }
 
         
