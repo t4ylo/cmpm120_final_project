@@ -70,6 +70,9 @@ class Entry extends Phaser.Scene {
         my.sprite.player = this.physics.add.sprite(20, 20, "player_idle");
         my.sprite.player.setCollideWorldBounds(true);
         my.sprite.player.setScale(0.10);
+        my.sprite.player.body.setSize(250, 250);  
+        this.physics.world.createDebugGraphic();
+        
 
         const tileset = this.tileset;
 
@@ -178,7 +181,7 @@ class Entry extends Phaser.Scene {
 
         } else {
             
-            my.sprite.player.setVelocityX(0);
+            my.sprite.player.setAccelerationX(0);
             my.sprite.player.setTexture("player_idle");
             my.sprite.player.setDragX(this.DRAG);
            

@@ -112,8 +112,11 @@ class Platformer extends Phaser.Scene {
 
         
         // set up player avatar
-        my.sprite.player = this.physics.add.sprite(0, 0, "platformer_characters", "tile_0006.png");
+        my.sprite.player = this.physics.add.sprite(20, 20, "player_idle");
         my.sprite.player.setCollideWorldBounds(true);
+        my.sprite.player.setScale(0.10);
+        my.sprite.player.body.setSize(250, 250);  
+        
 
         const tileset = this.tileset;
 
@@ -267,7 +270,7 @@ class Platformer extends Phaser.Scene {
 
         } else {
             
-            my.sprite.player.setVelocityX(0);
+            my.sprite.player.setAccelerationX(0);
             my.sprite.player.setTexture("player_idle");
             my.sprite.player.setDragX(this.DRAG);
            
