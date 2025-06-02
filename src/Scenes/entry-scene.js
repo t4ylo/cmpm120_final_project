@@ -70,8 +70,9 @@ class Entry extends Phaser.Scene {
         my.sprite.player = this.physics.add.sprite(20, 20, "player_idle");
         my.sprite.player.setCollideWorldBounds(true);
         my.sprite.player.setScale(0.10);
-        my.sprite.player.body.setSize(250, 250);  
+        my.sprite.player.body.setSize(300, 300);  
         this.physics.world.createDebugGraphic();
+        
         
 
         const tileset = this.tileset;

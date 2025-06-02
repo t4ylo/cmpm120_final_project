@@ -78,6 +78,11 @@ class Level_2 extends Phaser.Scene {
             this.coinGroup.add(coin);
         });
 
+        this.totalCoins = this.coinGroup.getChildren().length;
+        this.collectedCoins = 0;
+
+        
+
         this.powerup = this.map.createFromObjects("powerup", {
             name: "powerup",
             key: "tilemap_sheet",
@@ -112,8 +117,10 @@ class Level_2 extends Phaser.Scene {
 
         
         // set up player avatar
-        my.sprite.player = this.physics.add.sprite(0, 200, "platformer_characters", "tile_0006.png");
+        my.sprite.player = this.physics.add.sprite(0, 200, "player_idle");
         my.sprite.player.setCollideWorldBounds(true);
+        my.sprite.player.setScale(0.10);
+        my.sprite.player.body.setSize(300, 300);  
 
         const tileset = this.tileset;
 
@@ -168,9 +175,9 @@ class Level_2 extends Phaser.Scene {
         
         // Handle collision detection with coins
         this.physics.add.overlap(my.sprite.player, this.coinGroup, (player, coin) => {
-            console.log("Collected!");
             coin.destroy();
-            this.sfx.coins.play()
+            this.collectedCoins++;
+            this.sfx.coins.play();
         });
 
         this.physics.add.overlap(my.sprite.player, this.powerupGroup, (player, powerup) => {
@@ -180,9 +187,17 @@ class Level_2 extends Phaser.Scene {
             this.sfx.powerup.play()
         });
 
-        this.physics.add.overlap(my.sprite.player, this.flagGroup, (player, flag) => {
-            console.log("Complete!");
-            this.win = true
+        this.physics.add.overlap(my.sprite.player, this.flagGroup, () => {
+            if (this.collectedCoins >= this.totalCoins) {
+                this.win = true; // or whatever your next scene is
+            } else {
+                const msg = this.add.text(my.sprite.player.x - 40, my.sprite.player.y - 40, "Collect all coins!", {
+                    fontSize: '10px',
+                    fill: '#ff0000'
+                }).setScrollFactor(0).setDepth(99);
+
+                this.time.delayedCall(1000, () => msg.destroy());
+            }
         });
         
 
@@ -267,7 +282,7 @@ class Level_2 extends Phaser.Scene {
 
         } else {
             
-            my.sprite.player.setVelocityX(0);
+            my.sprite.player.setAccelerationX(0);
             my.sprite.player.setTexture("player_idle");
             my.sprite.player.setDragX(this.DRAG);
            

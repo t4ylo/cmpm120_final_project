@@ -5,6 +5,8 @@ class Level_3 extends Phaser.Scene {
         this.win = false;
         this.playerIsDead = false;
         this.walkSoundCooldown = 0;
+        this.hasKey = false;
+        this.insertedKey = false;
     }
 
     init() {
@@ -27,6 +29,8 @@ class Level_3 extends Phaser.Scene {
 
         this.win = false
         this.playerIsDead = false;
+        this.hasKey = false;
+        this.insertedKey = false;
 
         // Create a new tilemap.
         this.map = this.add.tilemap("level_3", 21, 21, 50, 20);
@@ -78,6 +82,9 @@ class Level_3 extends Phaser.Scene {
             this.coinGroup.add(coin);
         });
 
+        this.totalCoins = this.coinGroup.getChildren().length;
+        this.collectedCoins = 0;
+
         this.powerup = this.map.createFromObjects("powerup", {
             name: "powerup",
             key: "tilemap_sheet",
@@ -114,7 +121,7 @@ class Level_3 extends Phaser.Scene {
             name: "lock",
             key: "tilemap_sheet",
             frame: 225
-        });
+        })[0];
 
         this.keyGroup = this.physics.add.staticGroup();
 
@@ -122,14 +129,16 @@ class Level_3 extends Phaser.Scene {
             name: "key",
             key: "tilemap_sheet",
             frame: 406
-        });
+        })[0];
 
         this.lockGroup = this.physics.add.staticGroup();
 
         
         // set up player avatar
-        my.sprite.player = this.physics.add.sprite(0, 0, "platformer_characters", "tile_0006.png");
+        my.sprite.player = this.physics.add.sprite(20, 20, "player_idle");
         my.sprite.player.setCollideWorldBounds(true);
+        my.sprite.player.setScale(0.10);
+        my.sprite.player.body.setSize(300, 300);  
 
         const tileset = this.tileset;
 
@@ -184,9 +193,9 @@ class Level_3 extends Phaser.Scene {
         
         // Handle collision detection with coins
         this.physics.add.overlap(my.sprite.player, this.coinGroup, (player, coin) => {
-            console.log("Collected!");
             coin.destroy();
-            this.sfx.coins.play()
+            this.collectedCoins++;
+            this.sfx.coins.play();
         });
 
         this.physics.add.overlap(my.sprite.player, this.powerupGroup, (player, powerup) => {
@@ -196,9 +205,33 @@ class Level_3 extends Phaser.Scene {
             this.sfx.powerup.play()
         });
 
-        this.physics.add.overlap(my.sprite.player, this.flagGroup, (player, flag) => {
-            console.log("Complete!");
-            this.win = true
+        this.keySprite = this.physics.add.existing(this.key, true);
+        this.physics.add.overlap(my.sprite.player, this.keySprite, () => {
+            this.hasKey = true;
+            this.sfx.powerup.play(); // optional
+            this.keySprite.destroy();
+        });
+
+        this.lockSprite = this.physics.add.existing(this.lock, true);
+
+        this.physics.add.overlap(my.sprite.player, this.lockSprite, () => {
+            if (this.hasKey && !this.insertedKey) {
+                this.insertedKey = true;
+                this.sfx.powerup.play(); // optional
+                this.lockSprite.destroy(); // unlock visual
+            }
+        });
+
+        this.physics.add.overlap(my.sprite.player, this.flagGroup, () => {
+            if (this.collectedCoins >= this.totalCoins && this.insertedKey) {
+                this.win = true; // or next level
+            } else {
+                const msg = this.add.text(my.sprite.player.x - 50, my.sprite.player.y - 50, 
+                    this.insertedKey ? "Collect all coins!" : this.hasKey ? "Insert the key!" : "Find the key!",
+                    { fontSize: '10px', fill: '#ff0000' }
+                ).setScrollFactor(0).setDepth(100);
+                this.time.delayedCall(1000, () => msg.destroy());
+            }
         });
         
 
@@ -283,7 +316,7 @@ class Level_3 extends Phaser.Scene {
 
         } else {
             
-            my.sprite.player.setVelocityX(0);
+            my.sprite.player.setAccelerationX(0);
             my.sprite.player.setTexture("player_idle");
             my.sprite.player.setDragX(this.DRAG);
            
