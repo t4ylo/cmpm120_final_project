@@ -5,6 +5,14 @@ class Text_scene_4 extends Phaser.Scene {
 
 
     create() {
+        this.add.rectangle(
+            0,
+            0,
+            this.sys.game.config.width,
+            this.sys.game.config.height,
+            0x301934,
+            0.7 
+        ).setOrigin(0);
 
         this.add.text(game.config.width / 2, game.config.height / 2 - 100,
             "Wow... well done. I suppose I need to make it more difficult for the next challenger.", {
@@ -25,7 +33,7 @@ class Text_scene_4 extends Phaser.Scene {
             }).setOrigin(0.5);
 
         let continueText = this.add.text(game.config.width / 2, game.config.height / 2 + 150,
-            "Press SPACE to play again.", {
+            "Press SPACE to continue.", {
                 fontFamily: 'Times',
                 fontSize: '28px',
                 color: '#ffffff'
@@ -41,7 +49,7 @@ class Text_scene_4 extends Phaser.Scene {
         });
 
         this.input.keyboard.once("keydown-SPACE", () => {
-            this.scene.start("entryScene");
+            this.scene.start("credit_scene");
         });
     }
 }

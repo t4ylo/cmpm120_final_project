@@ -5,6 +5,14 @@ class Text_scene_3 extends Phaser.Scene {
 
 
     create() {
+        this.add.rectangle(
+            0,
+            0,
+            this.sys.game.config.width,
+            this.sys.game.config.height,
+            0x301934,
+            0.7 
+        ).setOrigin(0);
 
         this.add.text(game.config.width / 2, game.config.height / 2 - 100,
             "WHAT! How did you do that??", {

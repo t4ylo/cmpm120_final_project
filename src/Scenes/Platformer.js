@@ -308,7 +308,7 @@ class Platformer extends Phaser.Scene {
         if (this.powerupCollected && !this.powerupMessageShown) {
             this.add.text(my.sprite.player.x, my.sprite.player.y - 50,
                 'Power Up! You can now double jump!',
-                { font: '"Press Start 2P"', fontSize: '8px', fill: '#ffffff' });
+                { font: '"Times"', fontSize: '8px', fill: '#ffffff' });
             this.powerupMessageShown = true;
         }
 
