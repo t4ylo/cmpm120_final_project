@@ -1,2 +1,2 @@
 # platformer-project
-Taylor Pearce Platformer Game Project
+Taylor Pearce CMPM 120 Final Project
