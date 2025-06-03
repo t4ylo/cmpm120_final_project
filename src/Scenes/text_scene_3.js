@@ -1,13 +1,13 @@
-class Text_scene_1 extends Phaser.Scene {
+class Text_scene_3 extends Phaser.Scene {
     constructor() {
-        super("text_scene_1");
+        super("text_scene_3");
     }
 
 
     create() {
 
         this.add.text(game.config.width / 2, game.config.height / 2 - 100,
-            "Oh hello. It looks like you have travelled further than you should have.", {
+            "WHAT! How did you do that??", {
                 fontFamily: 'Times',
                 fontSize: '36px',
                 color: '#ffffff',
@@ -16,7 +16,7 @@ class Text_scene_1 extends Phaser.Scene {
             }).setOrigin(0.5);
 
         this.add.text(game.config.width / 2, game.config.height / 2,
-            "Unfortunately, this means you will have to escape my dungeon. Good luck >:)", {
+            "You may have done that but you won't make it passed this. You must collect all coins AND collect a key and unlock the corresponding box before you can continue.", {
                 fontFamily: 'Times',
                 fontSize: '36px',
                 color: '#ffffff',
@@ -41,8 +41,7 @@ class Text_scene_1 extends Phaser.Scene {
         });
 
         this.input.keyboard.once("keydown-SPACE", () => {
-            this.scene.start("platformerScene");
+            this.scene.start("level_3Scene");
         });
     }
 }
-

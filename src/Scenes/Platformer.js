@@ -330,7 +330,7 @@ class Platformer extends Phaser.Scene {
         
 
         if(this.win) {
-            this.scene.start("level_2Scene");
+            this.scene.start("text_scene_2");
         }
 
         

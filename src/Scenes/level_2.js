@@ -337,7 +337,7 @@ class Level_2 extends Phaser.Scene {
         
 
         if(this.win) {
-            this.scene.start("level_3Scene");
+            this.scene.start("text_scene_3");
         }
 
         

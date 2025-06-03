@@ -133,6 +133,16 @@ class Entry extends Phaser.Scene {
         this.cameras.main.setZoom(this.SCALE = 2);
         this.cameras.main.setBackgroundColor("#add8e6");
 
+        //inner dialogue
+        this.add.text(350, game.config.height / 2 - 250,
+            "Hm this is odd, I've never seen grass this color. I'll continue on and explore.", {
+                fontFamily: 'Times',
+                fontSize: '16px',
+                color: '#ffffff',
+                
+                align: 'center'
+            }).setOrigin(0.5);
+
         
         
         
@@ -235,7 +245,7 @@ class Entry extends Phaser.Scene {
         }
 
         if(this.sceneTriggered) {
-            this.scene.start("platformerScene");
+            this.scene.start("text_scene_1");
         }
 
         
