@@ -205,6 +205,7 @@ class Level_2 extends Phaser.Scene {
         cursors = this.input.keyboard.createCursorKeys();
 
         this.rKey = this.input.keyboard.addKey('R');
+        this.sKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
         
 
@@ -242,6 +243,11 @@ class Level_2 extends Phaser.Scene {
     }
 
     update() {
+        //scene skip
+        if (Phaser.Input.Keyboard.JustDown(this.sKey)) {
+            this.scene.start("text_scene_3");
+        }
+
         //walking vfx
         if(cursors.left.isDown) {
             my.sprite.player.setAccelerationX(-this.ACCELERATION);
